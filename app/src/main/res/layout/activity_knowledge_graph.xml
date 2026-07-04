@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/miko_bg">
+
+    <LinearLayout
+        android:id="@+id/graph_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/graph_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="4dp"
+            android:text="←"
+            android:textColor="@color/miko_text_primary"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/oxanium"
+            android:text="Knowledge Graph"
+            android:textColor="@color/miko_text_primary"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <com.blurr.voice.core.graph.KnowledgeGraphView
+        android:id="@+id/graph_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/graph_header" />
+
+    <TextView
+        android:id="@+id/graph_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:fontFamily="@font/oxanium_extralight"
+        android:gravity="center"
+        android:text="Your knowledge graph will grow as Miko observes your day. Come back soon."
+        android:textColor="@color/miko_text_secondary"
+        android:textSize="15sp"
+        android:visibility="gone" />
+
+</RelativeLayout>

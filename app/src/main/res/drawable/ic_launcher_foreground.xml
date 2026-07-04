@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Miko launcher foreground — the mascot, scaled into the adaptive-icon safe zone.
+  Viewport matches the mascot (512) with a group scale so nothing is clipped by the mask.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <group
+        android:scaleX="0.74"
+        android:scaleY="0.74"
+        android:pivotX="256"
+        android:pivotY="272">
+
+        <!-- hair buns -->
+        <path
+            android:pathData="M98,178 a54,54 0 1,0 108,0 a54,54 0 1,0 -108,0 Z"
+            android:fillColor="#B084F5" />
+        <path
+            android:pathData="M306,178 a54,54 0 1,0 108,0 a54,54 0 1,0 -108,0 Z"
+            android:fillColor="#B084F5" />
+
+        <!-- body / head -->
+        <path android:pathData="M81,300 a175,162 0 1,0 350,0 a175,162 0 1,0 -350,0 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="linear"
+                    android:startX="256" android:startY="138"
+                    android:endX="256" android:endY="462"
+                    android:startColor="#CDA0FF"
+                    android:endColor="#997BF2" />
+            </aapt:attr>
+        </path>
+
+        <!-- face light -->
+        <path
+            android:pathData="M126,322 a132,120 0 1,0 264,0 a132,120 0 1,0 -264,0 Z"
+            android:fillColor="#22FFFFFF" />
+
+        <!-- eyes -->
+        <path
+            android:pathData="M166,292 a40,50 0 1,0 80,0 a40,50 0 1,0 -80,0 Z"
+            android:fillColor="#FFFFFF" />
+        <path
+            android:pathData="M266,292 a40,50 0 1,0 80,0 a40,50 0 1,0 -80,0 Z"
+            android:fillColor="#FFFFFF" />
+        <path
+            android:pathData="M190,302 a24,32 0 1,0 48,0 a24,32 0 1,0 -48,0 Z"
+            android:fillColor="#2A2145" />
+        <path
+            android:pathData="M274,302 a24,32 0 1,0 48,0 a24,32 0 1,0 -48,0 Z"
+            android:fillColor="#2A2145" />
+        <path
+            android:pathData="M214,286 a11,11 0 1,0 22,0 a11,11 0 1,0 -22,0 Z"
+            android:fillColor="#FFFFFF" />
+        <path
+            android:pathData="M298,286 a11,11 0 1,0 22,0 a11,11 0 1,0 -22,0 Z"
+            android:fillColor="#FFFFFF" />
+
+        <!-- cheeks -->
+        <path
+            android:pathData="M132,344 a26,17 0 1,0 52,0 a26,17 0 1,0 -52,0 Z"
+            android:fillColor="#66FF89A8" />
+        <path
+            android:pathData="M328,344 a26,17 0 1,0 52,0 a26,17 0 1,0 -52,0 Z"
+            android:fillColor="#66FF89A8" />
+
+        <!-- smile -->
+        <path
+            android:pathData="M230,352 Q256,378 282,352"
+            android:strokeColor="#2A2145"
+            android:strokeWidth="8"
+            android:strokeLineCap="round"
+            android:fillColor="#00000000" />
+
+        <!-- ribbon -->
+        <path
+            android:pathData="M256,122 L206,94 L206,150 Z"
+            android:fillColor="#FF5A79" />
+        <path
+            android:pathData="M256,122 L306,94 L306,150 Z"
+            android:fillColor="#FF5A79" />
+        <path
+            android:pathData="M238,122 a18,18 0 1,0 36,0 a18,18 0 1,0 -36,0 Z"
+            android:fillColor="#E8436A" />
+    </group>
+</vector>

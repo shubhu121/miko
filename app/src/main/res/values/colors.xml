@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="wave_color">#00BCD4</color>
+    <color name="background_color">#101010</color> <!-- Dark background -->
+    <color name="dark_background">#101010</color>
+    <color name="button_blue">#FF3663FF</color>
+    <color name="text_gray">#FF8A8A8E</color>
+    <color name="gradient_start">#FFC882FF</color>
+    <color name="gradient_end">#FFA182FF</color>
+    <color name="input_box_background">#2E2F33</color>
+    <color name="panel_background">#FF1C1C1E</color>
+    
+    <!-- Memory management colors -->
+    <color name="background">#101010</color>
+    <color name="primary">#101010</color>
+    <color name="accent">#03DAC5</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="text_primary">#000000</color>
+    <color name="text_secondary">#666666</color>
+    <color name="orange">#FFBC87</color>
+
+    <!-- === Miko brand palette (calm, soft, kawaii) === -->
+    <color name="miko_bg">#0F0D17</color>            <!-- deep calm night -->
+    <color name="miko_surface">#1A1726</color>       <!-- card surface -->
+    <color name="miko_surface_alt">#221E33</color>   <!-- elevated surface -->
+    <color name="miko_primary">#B084F5</color>       <!-- Miko lavender -->
+    <color name="miko_primary_dark">#8A63E0</color>
+    <color name="miko_accent">#FF89A8</color>        <!-- soft blush pink -->
+    <color name="miko_text_primary">#F3EEFF</color>
+    <color name="miko_text_secondary">#A79FC4</color>
+    <color name="miko_divider">#2E2A40</color>
+
+    <!-- Delta symbol state colors -->
+    <color name="delta_idle">#FFFFFF</color>        <!-- White - ready state -->
+    <color name="delta_listening">#FF9800</color>   <!-- Orange/Amber - listening -->
+    <color name="delta_processing">#2196F3</color>  <!-- Blue - thinking/processing -->
+    <color name="delta_speaking">#4CAF50</color>    <!-- Green - speaking -->
+    <color name="delta_error">#F44336</color>       <!-- Red - error state -->
+</resources>

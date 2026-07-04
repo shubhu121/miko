@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/miko_bg"
+    android:orientation="vertical"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="20dp">
+
+    <!-- Greeting -->
+    <LinearLayout
+        android:id="@+id/greeting_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="12dp"
+            android:contentDescription="@string/miko_mascot_desc"
+            android:src="@drawable/ic_miko_mascot" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/greeting_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oxanium"
+                android:letterSpacing="-0.02"
+                android:text="@string/miko_greeting_default"
+                android:textColor="@color/miko_text_primary"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oxanium_extralight"
+                android:text="@string/miko_greeting_subtitle"
+                android:textColor="@color/miko_text_secondary"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/graph_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/miko_pill_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingStart="14dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="8dp"
+            android:text="@string/miko_graph_button"
+            android:textColor="@color/miko_primary"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <!-- Unified search + voice -->
+    <LinearLayout
+        android:id="@+id/search_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/search_input"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:background="@drawable/miko_search_bg"
+            android:fontFamily="@font/oxanium"
+            android:hint="@string/miko_search_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="@color/miko_text_primary"
+            android:textColorHint="@color/miko_text_secondary"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/mic_button"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/miko_search_bg"
+            android:clickable="true"
+            android:contentDescription="@string/miko_voice_button"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="🎙"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <!-- Daily summary card -->
+    <LinearLayout
+        android:id="@+id/summary_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/miko_summary_bg"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/oxanium"
+            android:text="@string/miko_today_label"
+            android:textColor="@color/miko_primary"
+            android:textSize="13sp"
+            android:textAllCaps="true"
+            android:letterSpacing="0.1" />
+
+        <TextView
+            android:id="@+id/summary_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/oxanium_extralight"
+            android:lineSpacingExtra="3dp"
+            android:text="@string/miko_summary_empty"
+            android:textColor="@color/miko_text_primary"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/talk_to_miko_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/miko_pill_bg"
+            android:backgroundTint="@color/miko_primary"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/oxanium"
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp"
+            android:text="@string/miko_talk_button"
+            android:textColor="@color/miko_bg"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- Predictive suggestion (Phase 3) -->
+    <LinearLayout
+        android:id="@+id/suggestion_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/miko_card_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:text="✨"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/suggestion_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oxanium"
+                android:textColor="@color/miko_text_primary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/suggestion_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oxanium_extralight"
+                android:textColor="@color/miko_text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/suggestion_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/miko_pill_bg"
+            android:backgroundTint="@color/miko_primary"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/oxanium"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:text="@string/miko_suggestion_do"
+            android:textColor="@color/miko_bg"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <!-- Feed section label -->
+    <TextView
+        android:id="@+id/feed_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/oxanium"
+        android:text="@string/miko_timeline_label"
+        android:textColor="@color/miko_text_secondary"
+        android:textSize="13sp"
+        android:textAllCaps="true"
+        android:letterSpacing="0.1" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/feed_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            tools:listitem="@layout/item_timeline_entry" />
+
+        <TextView
+            android:id="@+id/feed_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/oxanium_extralight"
+            android:gravity="center"
+            android:text="@string/miko_timeline_empty"
+            android:textColor="@color/miko_text_secondary"
+            android:textSize="14sp"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</LinearLayout>

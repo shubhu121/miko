@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/miko_bg"
+    android:orientation="vertical">
+
+    <!-- Top bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/note_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="4dp"
+            android:text="←"
+            android:textColor="@color/miko_text_primary"
+            android:textSize="24sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/note_preview_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/miko_pill_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/oxanium"
+            android:paddingStart="16dp"
+            android:paddingTop="9dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="9dp"
+            android:text="Preview"
+            android:textColor="@color/miko_text_primary"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/note_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/miko_pill_bg"
+            android:backgroundTint="@color/miko_primary"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/oxanium"
+            android:paddingStart="20dp"
+            android:paddingTop="9dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="9dp"
+            android:text="Save"
+            android:textColor="@color/miko_bg"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/note_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/oxanium"
+        android:hint="Title"
+        android:inputType="textCapSentences"
+        android:maxLines="2"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:textColor="@color/miko_text_primary"
+        android:textColorHint="@color/miko_text_secondary"
+        android:textSize="24sp" />
+
+    <!-- Edit / preview area -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/note_body"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/oxanium_extralight"
+            android:gravity="top"
+            android:hint="Write a memory…  (markdown supported)"
+            android:inputType="textMultiLine|textCapSentences"
+            android:lineSpacingExtra="4dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/miko_text_primary"
+            android:textColorHint="@color/miko_text_secondary"
+            android:textSize="16sp" />
+
+        <ScrollView
+            android:id="@+id/note_preview_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/note_preview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="5dp"
+                android:padding="20dp"
+                android:textColor="@color/miko_text_primary"
+                android:textSize="16sp" />
+        </ScrollView>
+    </FrameLayout>
+
+    <!-- Formatting toolbar -->
+    <HorizontalScrollView
+        android:id="@+id/note_format_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/fmt_bold" style="@style/MikoFormatKey" android:text="B" android:textStyle="bold" />
+            <TextView android:id="@+id/fmt_italic" style="@style/MikoFormatKey" android:text="I" android:textStyle="italic" />
+            <TextView android:id="@+id/fmt_strike" style="@style/MikoFormatKey" android:text="S̶" />
+            <TextView android:id="@+id/fmt_highlight" style="@style/MikoFormatKey" android:text="◼" />
+            <TextView android:id="@+id/fmt_code" style="@style/MikoFormatKey" android:text="&lt;/&gt;" />
+            <TextView android:id="@+id/fmt_codeblock" style="@style/MikoFormatKey" android:text="{ }" />
+            <TextView android:id="@+id/fmt_heading" style="@style/MikoFormatKey" android:text="H" />
+            <TextView android:id="@+id/fmt_bullet" style="@style/MikoFormatKey" android:text="•" />
+            <TextView android:id="@+id/fmt_image" style="@style/MikoFormatKey" android:text="🖼" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- Audio bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:id="@+id/note_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/miko_pill_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/oxanium"
+            android:paddingStart="18dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="10dp"
+            android:text="🎙  Record"
+            android:textColor="@color/miko_text_primary"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/note_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/miko_pill_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/oxanium"
+            android:paddingStart="18dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="10dp"
+            android:text="▶  Play"
+            android:textColor="@color/miko_primary"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/note_audio_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/oxanium_extralight"
+            android:textColor="@color/miko_text_secondary"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</LinearLayout>

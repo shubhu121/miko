@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy for Miko</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+            color: #333;
+        }
+        h1, h2, h3 {
+            font-weight: 600;
+        }
+        code {
+            background-color: #f6f8fa;
+            padding: 3px 5px;
+            border-radius: 5px;
+        }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .note {
+            background-color: #f6f8fa;
+            border-left: 4px solid #B084F5;
+            padding: 10px 16px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Privacy Policy for Miko</h1>
+<p><strong>Effective Date:</strong> July 5, 2026</p>
+<p>Thank you for using Miko ("the App"), your personal AI operating layer. Miko goes beyond
+    answering commands: with your permission, it observes context across your device, remembers
+    what matters to you, and proactively helps. Because this involves sensitive information, we
+    want to be fully transparent about what we collect, how we use it, who it is shared with, and
+    the choices you have.</p>
+
+<div class="note">
+    <strong>Our guiding principle is local-first.</strong> Your memory and activity timeline are
+    stored in a private database on your device and that copy is the source of truth. Some
+    features send data to cloud services (described below) to add intelligence, but the cloud is
+    an enhancement — not a requirement — and you remain in control.
+</div>
+
+<h2>1. Information We Collect</h2>
+<p>To function as an on-device AI agent and personal operating layer, Miko accesses certain
+    information. We only collect what is needed to provide and improve the features you use.</p>
+
+<p><strong>a) Screen Content (via Accessibility Service)</strong><br>
+    To understand your requests and operate your phone's interface, Miko uses the Android
+    Accessibility Service, which allows it to read:</p>
+<ul>
+    <li><strong>UI Element Information:</strong> text, content descriptions, and resource IDs of on-screen elements.</li>
+    <li><strong>Screen Structure:</strong> the hierarchical layout of the current screen.</li>
+    <li><strong>Foreground App:</strong> which app you are currently using, so Miko can act with awareness of context.</li>
+    <li><strong>Screenshots:</strong> Miko can capture screenshots to give its AI models visual context, and can also read newly-saved screenshots you take to understand and remember what they contain.</li>
+</ul>
+<p>This is used to understand your device's state and to perform actions such as tapping,
+    swiping, and typing on your behalf.</p>
+
+<p><strong>b) Audio Information (via Microphone Permission)</strong><br>
+    Miko requires the <code>RECORD_AUDIO</code> permission to:</p>
+<ul>
+    <li><strong>Process Voice Commands:</strong> your spoken commands are converted to text so Miko can act on them.</li>
+    <li><strong>Wake-Word Detection:</strong> Miko listens for its wake word using the <strong>Vosk</strong> speech engine. This runs <strong>entirely on your device</strong>; your ambient audio is not streamed to the cloud for wake-word detection.</li>
+    <li><strong>Voice Notes:</strong> in the Memories notepad you can record voice memos. These recordings are saved <strong>only on your device</strong> and are not uploaded.</li>
+</ul>
+
+<p><strong>c) User Instructions &amp; Conversations</strong><br>
+    We process the text of your typed or spoken commands and your conversation history within a
+    session so Miko can understand your goals and respond helpfully.</p>
+
+<p><strong>d) Memories &amp; Notes</strong></p>
+<ul>
+    <li><strong>Automatic Extraction:</strong> facts may be extracted from your conversations to personalize your experience (e.g., remembering a name you mention). This analysis is performed by Google's Gemini AI.</li>
+    <li><strong>Manual Notes:</strong> in the "My Memories" notepad you can write text notes (with formatting and images) and record voice notes.</li>
+    <li><strong>Storage:</strong> memories and notes are stored in a private area of the app on your device. To power semantic search and Miko's knowledge graph, the <em>text</em> of your memories and notes is also processed by Google Gemini (for on-device search embeddings) and synced to Cognee (see Section 3). Images and voice recordings remain on your device.</li>
+</ul>
+
+<p><strong>e) Device Context &amp; Activity Timeline</strong><br>
+    To be genuinely helpful and proactive, Miko builds a private, on-device timeline of relevant
+    activity. Depending on the permissions you grant, this can include:</p>
+<ul>
+    <li><strong>Notifications</strong> you receive (via the Notification Listener), including email and calendar notifications, which Miko categorizes.</li>
+    <li><strong>Missed calls</strong> (via <code>READ_PHONE_STATE</code>) — that a call was missed, and the number where available.</li>
+    <li><strong>Incoming SMS messages</strong> (via <code>RECEIVE_SMS</code>) — sender and message text.</li>
+    <li><strong>Clipboard content</strong> that you copy, <strong>apps you open</strong>, and device signals such as <strong>battery, charging, and connectivity</strong> state.</li>
+</ul>
+<p>This timeline is retained on your device for a limited period (approximately 30 days) and then
+    automatically pruned. Salient items may be summarized and synced to Cognee to enrich your
+    knowledge graph (see Section 3).</p>
+
+<p><strong>f) Installed Applications</strong><br>
+    Miko uses the <code>QUERY_ALL_PACKAGES</code> permission to identify apps by name so it can
+    open and operate them for you.</p>
+
+<p><strong>g) Unique User Identifier</strong><br>
+    Miko generates a random, anonymous Unique User ID stored on your device to manage your
+    memories and sessions without using personal identifiers such as your name or email.</p>
+
+<p><strong>h) Log Data for Debugging</strong><br>
+    To diagnose issues, some interaction data with our AI services (the prompt, the response, the
+    model used, and success/error status) may be logged to Google Firebase. This log data is not
+    linked to your personal identity.</p>
+
+<h2>2. How We Use Your Information</h2>
+<ul>
+    <li><strong>Core Functionality:</strong> to understand your commands and automate actions on your device.</li>
+    <li><strong>Memory &amp; Personalization:</strong> to remember what matters to you and provide context-aware, relevant help.</li>
+    <li><strong>Proactive Assistance:</strong> to recognize routines and surface timely suggestions and reminders.</li>
+    <li><strong>Knowledge Graph &amp; Search:</strong> to connect related information across your apps and activity so you can find and recall things quickly.</li>
+    <li><strong>Reliability:</strong> to analyze anonymized log data to debug and improve the App.</li>
+</ul>
+
+<h2>3. Data Sharing and Third-Party Services</h2>
+<p>Miko relies on a few specialized third-party services to function. <strong>We do not sell your
+    data.</strong> Data is shared with these providers only to deliver the features you use:</p>
+<ul>
+    <li><strong>Google (Gemini AI Models):</strong> your conversations, screen content (structure or screenshots), instructions, and the text of your memories and notes are sent to Google's Generative AI services for reasoning, analysis, vision understanding, and search embeddings. Subject to <a href="https://policies.google.com/privacy">Google's Privacy Policy</a>.</li>
+    <li><strong>Cognee (Cloud Memory &amp; Knowledge Graph):</strong> to build a searchable knowledge graph, the <em>text</em> of your memories and notes and summarized timeline activity — which may include notification, message, email, call, clipboard, and app-usage information — is sent to and stored by Cognee's cloud service. This enrichment is best-effort; your on-device copy remains the source of truth. Subject to <a href="https://www.cognee.ai/">Cognee's</a> privacy terms.</li>
+    <li><strong>Deepgram (Text-to-Speech):</strong> when Miko speaks to you, the response text is sent to Deepgram to synthesize the spoken audio. Subject to <a href="https://deepgram.com/privacy">Deepgram's Privacy Policy</a>.</li>
+    <li><strong>Tavily (Web Search):</strong> if a task requires web research, a search query derived from your instruction is sent to the Tavily Search API. Subject to <a href="https://tavily.com/privacy">Tavily's Privacy Policy</a>.</li>
+    <li><strong>Google (Firebase):</strong> anonymized log data, authentication, and configuration are handled by Google Firebase, as described in Section 1(h).</li>
+    <li><strong>Vosk (Wake Word):</strong> wake-word detection runs <strong>100% on your device</strong>. No audio is sent to any Vosk server.</li>
+</ul>
+
+<h2>4. Data Storage and Retention</h2>
+<ul>
+    <li><strong>On-device:</strong> memories, notes, voice recordings, note images, and the activity timeline are stored in the App's private storage. The timeline is automatically pruned after roughly 30 days.</li>
+    <li><strong>Cloud:</strong> memory and note text and summarized activity synced to Cognee are retained by Cognee until deleted. Anonymized debug logs are retained by Firebase.</li>
+</ul>
+
+<h2>5. Your Control and Choices</h2>
+<p>You are in control of your data.</p>
+<ul>
+    <li><strong>Managing Memories &amp; Notes:</strong> you can view, edit, and permanently delete any note or memory at any time from the "My Memories" screen. Deleting a note also removes its on-device audio and images.</li>
+    <li><strong>Controlling Monitors:</strong> the missed-call, SMS, notification, and other monitors only operate when you grant the relevant permissions. You can decline or revoke them at any time; Miko will simply collect less.</li>
+    <li><strong>Revoking Permissions:</strong> you can revoke Accessibility, Microphone, Notification access, Phone, SMS, and Overlay permissions at any time in Android Settings. Revoking permissions limits or disables the corresponding features.</li>
+    <li><strong>Cloud Memory:</strong> if you would like your data removed from Cognee, contact us using the details below.</li>
+</ul>
+
+<h2>6. Permissions Summary</h2>
+<p>Miko may request the following permissions; each is used only for the feature it enables:</p>
+<ul>
+    <li><code>Accessibility Service</code> — read screen content and perform actions.</li>
+    <li><code>RECORD_AUDIO</code> — voice commands, wake word, and voice notes.</li>
+    <li><code>Notification Listener</code> — read notifications for the timeline and automations.</li>
+    <li><code>READ_PHONE_STATE</code> — detect missed calls.</li>
+    <li><code>RECEIVE_SMS</code> — detect incoming messages.</li>
+    <li><code>READ_MEDIA_IMAGES</code> / <code>READ_EXTERNAL_STORAGE</code> — understand screenshots and attach images to notes.</li>
+    <li><code>SYSTEM_ALERT_WINDOW</code> — show visual feedback over other apps.</li>
+    <li><code>SCHEDULE_EXACT_ALARM</code> / <code>POST_NOTIFICATIONS</code> — deliver reminders.</li>
+    <li><code>QUERY_ALL_PACKAGES</code> — identify installed apps by name.</li>
+    <li><code>INTERNET</code> — communicate with the AI services listed in Section 3.</li>
+</ul>
+
+<h2>7. Children's Privacy</h2>
+<p>Miko is not directed to children under 13, and we do not knowingly collect personal
+    information from children.</p>
+
+<h2>8. Changes to This Privacy Policy</h2>
+<p>We may update this policy from time to time. We will notify you of material changes by posting
+    the updated policy here and within the App.</p>
+
+<h2>9. Contact Us</h2>
+<p>If you have any questions about this Privacy Policy, or wish to request deletion of your data,
+    please contact us at: <strong>ayush0000ayush@gmail.com</strong></p>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Miko mascot — a cute kawaii "mochi spirit" shrine-maiden companion.
+  Hand-authored vector: soft rounded body, hair buns, big glossy eyes,
+  rosy cheeks, gentle smile, red shrine-maiden ribbon and a sparkle.
+  Fully scalable; used for the launcher icon, onboarding and the home hero.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="220dp"
+    android:height="220dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <!-- soft ground shadow -->
+    <path
+        android:pathData="M136,452 a120,22 0 1,0 240,0 a120,22 0 1,0 -240,0 Z"
+        android:fillColor="#22000000" />
+
+    <!-- hair buns (behind the head) -->
+    <path
+        android:pathData="M98,178 a54,54 0 1,0 108,0 a54,54 0 1,0 -108,0 Z"
+        android:fillColor="#B084F5" />
+    <path
+        android:pathData="M306,178 a54,54 0 1,0 108,0 a54,54 0 1,0 -108,0 Z"
+        android:fillColor="#B084F5" />
+    <!-- bun highlights -->
+    <path
+        android:pathData="M132,160 a16,16 0 1,0 32,0 a16,16 0 1,0 -32,0 Z"
+        android:fillColor="#33FFFFFF" />
+    <path
+        android:pathData="M340,160 a16,16 0 1,0 32,0 a16,16 0 1,0 -32,0 Z"
+        android:fillColor="#33FFFFFF" />
+
+    <!-- body / head -->
+    <path android:pathData="M81,300 a175,162 0 1,0 350,0 a175,162 0 1,0 -350,0 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="256" android:startY="138"
+                android:endX="256" android:endY="462"
+                android:startColor="#CDA0FF"
+                android:endColor="#997BF2" />
+        </aapt:attr>
+    </path>
+
+    <!-- face light -->
+    <path
+        android:pathData="M126,322 a132,120 0 1,0 264,0 a132,120 0 1,0 -264,0 Z"
+        android:fillColor="#22FFFFFF" />
+
+    <!-- eyes (white) -->
+    <path
+        android:pathData="M166,292 a40,50 0 1,0 80,0 a40,50 0 1,0 -80,0 Z"
+        android:fillColor="#FFFFFF" />
+    <path
+        android:pathData="M266,292 a40,50 0 1,0 80,0 a40,50 0 1,0 -80,0 Z"
+        android:fillColor="#FFFFFF" />
+
+    <!-- pupils -->
+    <path
+        android:pathData="M190,302 a24,32 0 1,0 48,0 a24,32 0 1,0 -48,0 Z"
+        android:fillColor="#2A2145" />
+    <path
+        android:pathData="M274,302 a24,32 0 1,0 48,0 a24,32 0 1,0 -48,0 Z"
+        android:fillColor="#2A2145" />
+    <!-- big eye highlights -->
+    <path
+        android:pathData="M214,286 a11,11 0 1,0 22,0 a11,11 0 1,0 -22,0 Z"
+        android:fillColor="#FFFFFF" />
+    <path
+        android:pathData="M298,286 a11,11 0 1,0 22,0 a11,11 0 1,0 -22,0 Z"
+        android:fillColor="#FFFFFF" />
+    <!-- small eye sparkles -->
+    <path
+        android:pathData="M206,316 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0 Z"
+        android:fillColor="#FFFFFF" />
+    <path
+        android:pathData="M290,316 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0 Z"
+        android:fillColor="#FFFFFF" />
+
+    <!-- cheeks -->
+    <path
+        android:pathData="M132,344 a26,17 0 1,0 52,0 a26,17 0 1,0 -52,0 Z"
+        android:fillColor="#66FF89A8" />
+    <path
+        android:pathData="M328,344 a26,17 0 1,0 52,0 a26,17 0 1,0 -52,0 Z"
+        android:fillColor="#66FF89A8" />
+
+    <!-- gentle smile -->
+    <path
+        android:pathData="M230,352 Q256,378 282,352"
+        android:strokeColor="#2A2145"
+        android:strokeWidth="8"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000" />
+
+    <!-- shrine-maiden red ribbon -->
+    <path
+        android:pathData="M256,122 L206,94 L206,150 Z"
+        android:fillColor="#FF5A79" />
+    <path
+        android:pathData="M256,122 L306,94 L306,150 Z"
+        android:fillColor="#FF5A79" />
+    <path
+        android:pathData="M238,122 a18,18 0 1,0 36,0 a18,18 0 1,0 -36,0 Z"
+        android:fillColor="#E8436A" />
+
+    <!-- floating sparkle -->
+    <path
+        android:pathData="M420,146 C423,171 426,174 451,177 C426,180 423,183 420,208 C417,183 414,180 389,177 C414,174 417,171 420,146 Z"
+        android:fillColor="#EED8FF" />
+</vector>
