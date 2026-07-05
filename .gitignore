@@ -24,6 +24,12 @@ app/google-services.json
 META-INF/
 .agents
 .claude
-.github/
 .kiro/
 .vscode
+# Release signing (never commit secrets/keystores)
+keystore.properties
+*.jks
+*.keystore
+
+# Local CI secret exports (never commit)
+*.base64

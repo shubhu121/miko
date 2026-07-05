@@ -1,0 +1,83 @@
+name: Release APK
+
+# Build a signed release APK and attach it to a GitHub Release.
+#  - Push a tag like `v1.0.0`  → builds + creates a Release with the APK.
+#  - Run manually (Actions tab) → builds + uploads the APK as a workflow artifact.
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write   # required to create a Release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Decode release keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: echo "$KEYSTORE_BASE64" | base64 -d > "$GITHUB_WORKSPACE/miko-release.jks"
+
+      - name: Create keystore.properties
+        run: |
+          cat > keystore.properties <<EOF
+          storeFile=../miko-release.jks
+          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+          keyAlias=${{ secrets.KEY_ALIAS }}
+          keyPassword=${{ secrets.KEY_PASSWORD }}
+          EOF
+
+      - name: Restore google-services.json
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: echo "$GOOGLE_SERVICES_JSON" | base64 -d > app/google-services.json
+
+      - name: Create local.properties
+        run: |
+          cat > local.properties <<EOF
+          GEMINI_API_KEYS=${{ secrets.GEMINI_API_KEYS }}
+          DEEPGRAM_API_KEY=${{ secrets.DEEPGRAM_API_KEY }}
+          COGNEE_API_KEY=${{ secrets.COGNEE_API_KEY }}
+          COGNEE_BASE_URL=${{ secrets.COGNEE_BASE_URL }}
+          COGNEE_TENANT_ID=${{ secrets.COGNEE_TENANT_ID }}
+          COGNEE_USER_ID=${{ secrets.COGNEE_USER_ID }}
+          TAVILY_API=${{ secrets.TAVILY_API }}
+          GCLOUD_PROXY_URL=${{ secrets.GCLOUD_PROXY_URL }}
+          GCLOUD_PROXY_URL_KEY=${{ secrets.GCLOUD_PROXY_URL_KEY }}
+          EOF
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: Build signed release APK
+        run: ./gradlew :app:assembleRelease --no-daemon --stacktrace
+
+      - name: Upload APK as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: miko-release-apk
+          path: app/build/outputs/apk/release/*.apk
+
+      - name: Publish GitHub Release (on tag)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: app/build/outputs/apk/release/*.apk
+          generate_release_notes: true
+          fail_on_unmatched_files: true

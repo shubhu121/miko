@@ -26,6 +26,14 @@ if (versionPropsFile.exists()) {
     versionProps.load(FileInputStream(versionPropsFile))
 }
 
+// Load release signing config. keystore.properties is git-ignored and holds the keystore path
+// + passwords, so release builds are properly signed without committing any secrets.
+val keystoreProps = Properties()
+val keystorePropsFile = rootProject.file("keystore.properties")
+if (keystorePropsFile.exists()) {
+    keystoreProps.load(FileInputStream(keystorePropsFile))
+}
+
 android {
     namespace = "com.blurr.voice"
     compileSdk = 35
@@ -68,8 +76,27 @@ android {
 
     }
 
+    signingConfigs {
+        // Only define the release signing config when keystore.properties is present, so the
+        // build still works for contributors who don't have the keystore (they get an unsigned
+        // release APK, which is expected).
+        if (keystorePropsFile.exists()) {
+            create("release") {
+                storeFile = file(keystoreProps.getProperty("storeFile"))
+                storePassword = keystoreProps.getProperty("storePassword")
+                keyAlias = keystoreProps.getProperty("keyAlias")
+                keyPassword = keystoreProps.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
+            // Sign the release APK with the release keystore when available. This is what makes
+            // Google Sign-In work in release builds — Firebase must know this certificate's SHA-1.
+            if (keystorePropsFile.exists()) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             firebaseCrashlytics {
                 nativeSymbolUploadEnabled = true
             }
