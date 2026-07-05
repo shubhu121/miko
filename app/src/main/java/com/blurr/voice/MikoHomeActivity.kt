@@ -186,6 +186,9 @@ class MikoHomeActivity : BaseNavigationActivity() {
                 .setTitle("🌐 $query")
                 .setMessage(result)
                 .setPositiveButton("Done", null)
+                .setNeutralButton("Stop Speaking") { _, _ ->
+                    SpeechCoordinator.getInstance(this@MikoHomeActivity).stopSpeaking()
+                }
                 .show()
         }
     }
