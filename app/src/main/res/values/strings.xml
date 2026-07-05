@@ -141,6 +141,8 @@
     <string name="miko_search_empty">No matches found.</string>
     <string name="miko_graph_button">🕸 Graph</string>
     <string name="miko_voice_button">Talk to Miko with your voice</string>
+    <string name="miko_web_search_button">Search the web by voice</string>
+    <string name="miko_web_searching">Searching the web…</string>
     <string name="miko_suggestion_do">Do it</string>
     <string name="miko_confirm_run_title">Run this for you?</string>
     <string name="miko_confirm_run">Miko will: %s</string>

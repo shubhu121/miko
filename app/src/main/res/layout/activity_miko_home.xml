@@ -104,6 +104,19 @@
             android:gravity="center"
             android:text="🎙"
             android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/web_search_button"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/miko_search_bg"
+            android:clickable="true"
+            android:contentDescription="@string/miko_web_search_button"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="🌐"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <!-- Daily summary card -->

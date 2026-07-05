@@ -936,9 +936,23 @@ class ConversationalAgentService : Service() {
             emptyList()
         }
     }
+    /**
+     * Extracts the JSON object from a model reply that may be wrapped in ```json fences or
+     * surrounded by prose (common when calling Gemini directly without a JSON-enforcing proxy).
+     */
+    private fun extractJsonObject(raw: String): String {
+        var s = raw.trim()
+        if (s.startsWith("```")) {
+            s = s.removePrefix("```json").removePrefix("```").removeSuffix("```").trim()
+        }
+        val start = s.indexOf('{')
+        val end = s.lastIndexOf('}')
+        return if (start >= 0 && end > start) s.substring(start, end + 1) else s
+    }
+
     private fun parseModelResponse(response: String): ModelDecision {
         try {
-            val json = JSONObject(response)
+            val json = JSONObject(extractJsonObject(response))
             Log.d("justchecking", json.toString())
             // Use optString for safety, providing a default value if the key doesn't exist.
             val type = json.optString("Type", "Reply")
@@ -957,8 +971,15 @@ class ConversationalAgentService : Service() {
             return ModelDecision(type, finalReply, instruction, shouldEnd)
         } catch (e: org.json.JSONException) {
             Log.e("ConvAgent", "Error parsing JSON response, falling back. Response: $response", e)
-            // Fallback for malformed JSON
-            return ModelDecision(reply = "I seem to have gotten my thoughts tangled. Could you repeat that?")
+            // If the model replied in plain prose (no JSON), just speak that text as the reply
+            // instead of a canned error — far better than "thoughts tangled".
+            val plain = response.trim()
+                .removePrefix("```json").removePrefix("```").removeSuffix("```").trim()
+            return if (plain.isNotBlank() && !plain.startsWith("{")) {
+                ModelDecision(reply = plain)
+            } else {
+                ModelDecision(reply = "I seem to have gotten my thoughts tangled. Could you repeat that?")
+            }
         } catch (e: Exception) {
             Log.e("ConvAgent", "Generic error parsing model response, falling back. Response: $response", e)
             return ModelDecision(reply = "I had a minor issue processing that. Could you try again?")

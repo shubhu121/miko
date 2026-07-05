@@ -1,12 +1,20 @@
 package com.blurr.voice
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import com.blurr.voice.utilities.SpeechCoordinator
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -106,10 +114,13 @@ class MikoHomeActivity : BaseNavigationActivity() {
             pushActivity(Intent(this, com.blurr.voice.core.graph.KnowledgeGraphActivity::class.java))
         }
         micButton.setOnClickListener { startVoice() }
+        val webSearchButton = findViewById<TextView>(R.id.web_search_button)
+        webSearchButton.setOnClickListener { startVoiceWebSearch() }
         // Every tappable surface should "give" with a light haptic — the Apple touch.
         talkButton.pressable()
         graphButton.pressable()
         micButton.pressable()
+        webSearchButton.pressable()
         suggestionAction.pressable()
         findViewById<View>(R.id.summary_card).pressable(pressedScale = 0.985f, haptics = false)
 
@@ -131,6 +142,51 @@ class MikoHomeActivity : BaseNavigationActivity() {
         refreshGreeting()
         refreshSummary()
         loadSuggestions()
+    }
+
+    private val requestMicForWeb = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        if (granted) startVoiceWebSearch()
+        else Toast.makeText(this, "Microphone permission is needed for voice search.", Toast.LENGTH_SHORT).show()
+    }
+
+    /** Voice web search: speak a query → Tavily → speak + show the answer. */
+    private fun startVoiceWebSearch() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestMicForWeb.launch(Manifest.permission.RECORD_AUDIO)
+            return
+        }
+        Toast.makeText(this, "Listening… say what to search for", Toast.LENGTH_SHORT).show()
+        lifecycleScope.launch {
+            SpeechCoordinator.getInstance(this@MikoHomeActivity).startListening(
+                onResult = { query -> if (query.isNotBlank()) runWebSearch(query) },
+                onError = { err ->
+                    runOnUiThread {
+                        Toast.makeText(this@MikoHomeActivity, "Didn't catch that ($err).", Toast.LENGTH_SHORT).show()
+                    }
+                },
+                onListeningStateChange = {},
+                onPartialResult = {}
+            )
+        }
+    }
+
+    private fun runWebSearch(query: String) {
+        Toast.makeText(this, getString(R.string.miko_web_searching), Toast.LENGTH_SHORT).show()
+        lifecycleScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                runCatching {
+                    com.blurr.voice.api.TavilyApi(com.blurr.voice.BuildConfig.TAVILY_API).searchText(query)
+                }.getOrDefault("Sorry, the web search failed.")
+            }
+            runCatching { SpeechCoordinator.getInstance(this@MikoHomeActivity).speakToUser(result) }
+            androidx.appcompat.app.AlertDialog.Builder(this@MikoHomeActivity)
+                .setTitle("🌐 $query")
+                .setMessage(result)
+                .setPositiveButton("Done", null)
+                .show()
+        }
     }
 
     /** Voice-first entry: wake the conversational agent to listen. */
