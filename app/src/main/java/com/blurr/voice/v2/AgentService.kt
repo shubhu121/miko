@@ -135,7 +135,7 @@ class AgentService : Service() {
         memoryManager = MemoryManager(this, "", fileSystem, settings)
         perception = Perception(Eyes(this), SemanticParser())
         llmApi = GeminiApi(
-            "gemini-2.5-flash",
+            "gemini-2.5-flash-lite",
             apiKeyManager = ApiKeyManager,
             context = this,
             maxRetry = 10

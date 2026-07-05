@@ -46,7 +46,7 @@ object DeltaStateColorMapper {
      */
     fun getStatusText(state: PandaState): String {
         return when (state) {
-            PandaState.IDLE -> "Ready, tap delta to wake me up!"
+            PandaState.IDLE -> "Ready, tap Miko to wake me up!"
             PandaState.LISTENING -> "Listening..."
             PandaState.PROCESSING -> "Processing..."
             PandaState.SPEAKING -> "Speaking..."

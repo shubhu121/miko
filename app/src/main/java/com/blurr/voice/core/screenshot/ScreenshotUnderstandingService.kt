@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 object ScreenshotUnderstandingService {
 
     private const val TAG = "ScreenshotUnderstanding"
-    private const val MODEL = "gemini-2.5-flash"
+    private const val MODEL = "gemini-2.5-flash-lite"
     private const val MAX_DIMEN = 1024
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)

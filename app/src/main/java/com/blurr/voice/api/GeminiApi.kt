@@ -1,3 +1,4 @@
+
 package com.blurr.voice.api
 
 import android.content.Context
@@ -48,7 +49,7 @@ object GeminiApi {
     suspend fun generateContent(
         chat: List<Pair<String, List<Any>>>,
         images: List<Bitmap> = emptyList(),
-        modelName: String = "gemini-2.5-flash", // Updated to a more standard model name
+        modelName: String = "gemini-2.5-flash-lite", // flash-lite: higher free-tier quota
         maxRetry: Int = 4,
         context: Context? = null
     ): String? {
