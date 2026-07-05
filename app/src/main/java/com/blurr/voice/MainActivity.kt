@@ -284,7 +284,7 @@ class MainActivity : BaseNavigationActivity() {
             return
         }
 
-        val recipient = "ayush0000ayush@gmail.com"
+        val recipient = "shubhu0788@gmail.com"
         val subject = "I am facing issue in"
         val body = "Hello,\n\nI am facing issue for my account: $userEmail\n <issue-content>.... \n\nThank you."
 

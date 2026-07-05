@@ -117,7 +117,6 @@ class Finger(private val context: Context) {
     fun type(text: String) {
         Log.d(TAG, "Typing text: $text")
         service?.typeTextInFocusedField(text)
-        this.enter()
     }
 
     /**

@@ -21,10 +21,15 @@ class EmailComposeIntent : AppIntent {
 
     override fun buildIntent(context: Context, params: Map<String, Any?>): Intent? {
         val to = params["to"]?.toString()?.trim().orEmpty()
-        val mailto = if (to.isBlank()) "mailto:" else "mailto:$to"
+        // Use mailto: URI for ACTION_SENDTO to ensure only email apps respond
+        val uri = if (to.isBlank()) Uri.parse("mailto:") else Uri.parse("mailto:${Uri.encode(to)}")
+
         return Intent(Intent.ACTION_SENDTO).apply {
-            data = Uri.parse("mailto:")
-            putExtra(Intent.EXTRA_EMAIL, arrayOf(mailto))
+            data = uri
+            // EXTRA_EMAIL should be an array of strings (the actual addresses)
+            if (to.isNotBlank()) {
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(to))
+            }
             params["subject"]?.toString()?.takeIf { it.isNotBlank() }?.let {
                 putExtra(Intent.EXTRA_SUBJECT, it)
             }
@@ -32,15 +37,5 @@ class EmailComposeIntent : AppIntent {
                 putExtra(Intent.EXTRA_TEXT, it)
             }
         }
-//        val recipient = "ayush0000ayush@gmail.com"
-//        val subject = "Please increase limits"
-//        val body = "Hello,\n\nPlease increase the task limits for my account: $userEmail\n\nThank you."
-//
-//        val intent = Intent(Intent.ACTION_SENDTO).apply {
-//            data = Uri.parse("mailto:") // Only email apps should handle this
-//            putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
-//            putExtra(Intent.EXTRA_SUBJECT, subject)
-//            putExtra(Intent.EXTRA_TEXT, body)
-//        }
     }
 }

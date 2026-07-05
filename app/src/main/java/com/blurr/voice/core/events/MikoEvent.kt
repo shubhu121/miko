@@ -97,4 +97,10 @@ sealed class MikoEvent {
         val detail: String = "",
         override val timestamp: Long = System.currentTimeMillis()
     ) : MikoEvent()
+
+    data class ConversationCompleted(
+        val summary: String,
+        val transcript: String,
+        override val timestamp: Long = System.currentTimeMillis()
+    ) : MikoEvent()
 }

@@ -131,7 +131,7 @@
                         android:focusable="true"
                         android:gravity="center"
                         android:padding="12dp"
-                        android:text="How to wake up Panda"
+                        android:text="@string/how_to_wake_up"
                         android:textSize="12sp" />
 
                     <TextView

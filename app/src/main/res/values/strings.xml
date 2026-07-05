@@ -148,4 +148,5 @@
     <string name="miko_confirm_run">Miko will: %s</string>
     <string name="miko_run">Run</string>
     <string name="miko_cancel">Not now</string>
+    <string name="how_to_wake_up">How to wake up Miko</string>
 </resources>

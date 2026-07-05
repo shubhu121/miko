@@ -142,6 +142,12 @@ class TimelineRepository private constructor(context: Context) {
             title = event.title,
             subtitle = event.detail
         )
+        is MikoEvent.ConversationCompleted -> TimelineEntry(
+            timestamp = event.timestamp,
+            type = "conversation",
+            title = "Conversation with Miko",
+            subtitle = event.summary
+        )
         // Not worth persisting on their own.
         is MikoEvent.PhoneUnlocked,
         is MikoEvent.ConnectivityChanged -> null

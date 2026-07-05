@@ -50,6 +50,8 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.analytics
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FieldValue
+import com.blurr.voice.core.events.EventBus
+import com.blurr.voice.core.events.MikoEvent
 import com.blurr.voice.utilities.ServicePermissionManager
 import com.blurr.voice.utilities.PandaStateManager
 import com.blurr.voice.v2.perception.Perception
@@ -68,6 +70,9 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import com.google.ai.client.generativeai.type.Content
+import com.google.ai.client.generativeai.type.ImagePart
+import com.google.ai.client.generativeai.type.TextPart as GeminiTextPart
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
@@ -779,7 +784,7 @@ class ConversationalAgentService : Service() {
             4. If the user asks about something on the screen, you can reference the screen content directly.
             5. Always ask for clarification if the user's request is ambiguous or unclear.
             6. When the user ask to sing, shout or produce any sound, just generate text, we will sing it for you.
-            7. Your code is opensource so you can tell tell that to user. repo is ayush0chaudhary/blurr
+            7. Your code is opensource so you can tell tell that to user. repo is shubhu0788/blurr
             8. Give a warning for the tasks related to banking, games, shopping and app with Canvas (no a11y tree) that you wont be able to do them properly but you will try your best.
             
             Use these memories to answer the user's question with his personal data
@@ -1319,7 +1324,21 @@ class ConversationalAgentService : Service() {
                     .update("conversationHistory", FieldValue.arrayUnion(completionEntry))
                     .await()
 
-                Log.d("ConvAgent", "Successfully tracked conversation end in Firebase: $conversationId ($endReason)")
+                // Ingest to Cogni via EventBus
+                val transcript = conversationHistory.joinToString("\n") { (role, parts) ->
+                    val text = parts.joinToString(" ") { part ->
+                        when (part) {
+                            is GeminiTextPart -> part.text
+                            else -> ""
+                        }
+                    }
+                    "$role: $text"
+                }
+                val summary = if (transcript.length > 500) transcript.take(497) + "..." else transcript
+
+                EventBus.publish(MikoEvent.ConversationCompleted(summary, transcript))
+
+                Log.d("ConvAgent", "Successfully tracked conversation end in Firebase and published to EventBus: $conversationId ($endReason)")
             } catch (e: Exception) {
                 Log.e("ConvAgent", "Failed to track conversation end in Firebase", e)
             }

@@ -117,6 +117,8 @@ object IngestionService {
             "Calendar: ${event.title}. ${event.text.take(200)}" to "calendar"
         is MikoEvent.Custom ->
             "${event.title}${if (event.detail.isNotBlank()) ": ${event.detail}" else ""}" to event.type
+        is MikoEvent.ConversationCompleted ->
+            "Conversation summary: ${event.summary}" to "conversations"
         // MemoryLearned is ingested by MemoryRepository; power/unlock/connectivity aren't
         // worth graphing on their own.
         else -> null
