@@ -52,6 +52,7 @@ import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FieldValue
 import com.blurr.voice.core.events.EventBus
 import com.blurr.voice.core.events.MikoEvent
+import com.blurr.voice.core.memory.MemoryRepository
 import com.blurr.voice.utilities.ServicePermissionManager
 import com.blurr.voice.utilities.PandaStateManager
 import com.blurr.voice.v2.perception.Perception
@@ -889,20 +890,30 @@ class ConversationalAgentService : Service() {
 
                 updatedPrompt = updatedPrompt.replace("{memory_context}", "User name is ${userProfile.getName()}")
             } else {
-                // Use cached memories from Firestore
-                if (cachedMemories.isNotEmpty()) {
-                    Log.d("ConvAgent", "Injecting ${cachedMemories.size} cached memories into context")
-                    
-                    // Take top 100 memories (already sorted by date desc in fetch logic if needed, or just take latest)
-                    // For now, we just take the list as is, assuming it's not huge, or take top 100.
-                    val topMemories = cachedMemories.take(100)
-                    
-                    val memoryContext = topMemories.joinToString("\n") { memory -> 
-                        "- ${memory.text} (Source: ${memory.source})" 
+
+                val localMemories = try {
+                    val lastUserMessage = conversationHistory.lastOrNull { it.first == "user" }
+                        ?.second?.filterIsInstance<GeminiTextPart>()?.joinToString(" ") { it.text }
+                    if (!lastUserMessage.isNullOrBlank()) {
+                        MemoryRepository.getInstance(this@ConversationalAgentService).search(lastUserMessage, 5)
+                    } else {
+                        emptyList()
                     }
+                } catch (e: Exception) {
+                    Log.e("ConvAgent", "Error fetching local memories", e)
+                    emptyList()
+                }
+
+                if (cachedMemories.isNotEmpty() || localMemories.isNotEmpty()) {
+                    Log.d("ConvAgent", "Injecting ${cachedMemories.size} cached and ${localMemories.size} local memories")
+                    
+                    val firestorePart = cachedMemories.take(50).joinToString("\n") { "- ${it.text} (Source: ${it.source})" }
+                    val localPart = localMemories.joinToString("\n") { "- $it (Source: Local/Cogni)" }
+                    
+                    val memoryContext = listOf(firestorePart, localPart).filter { it.isNotBlank() }.joinToString("\n")
                     updatedPrompt = updatedPrompt.replace("{memory_context}", memoryContext)
                 } else {
-                     Log.d("ConvAgent", "No cached memories available yet")
+                     Log.d("ConvAgent", "No cached or local memories available yet")
                      updatedPrompt = updatedPrompt.replace("{memory_context}", "No memories available yet.")
                 }
             }
