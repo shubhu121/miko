@@ -73,3 +73,10 @@
 # 7. UI Automator (Since you included it in 'implementation')
 # ----------------------------------------------------------------------------
 -dontwarn androidx.test.uiautomator.**
+
+# ----------------------------------------------------------------------------
+# 8. Markwon image plugin — optional SVG/GIF decoders we do not bundle.
+#    The notepad only renders raster images, so these classes are safe to ignore.
+# ----------------------------------------------------------------------------
+-dontwarn com.caverock.androidsvg.**
+-dontwarn pl.droidsonroids.gif.**

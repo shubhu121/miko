@@ -87,7 +87,8 @@ class MikoHomeActivity : BaseNavigationActivity() {
 
         setContentView(R.layout.activity_miko_home)
         // Calm, edge-to-edge status bar that blends into the home background.
-        window.statusBarColor = androidx.core.content.ContextCompat.getColor(this, R.color.miko_bg)
+        @Suppress("DEPRECATION")
+        window.statusBarColor = ContextCompat.getColor(this, R.color.miko_bg)
 
         greetingText = findViewById(R.id.greeting_text)
         summaryText = findViewById(R.id.summary_text)

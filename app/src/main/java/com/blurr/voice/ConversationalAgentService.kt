@@ -1063,8 +1063,15 @@ class ConversationalAgentService : Service() {
                     typeface = Typeface.MONOSPACE
                 }
 
+                val screenWidth = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+                    windowManager.currentWindowMetrics.bounds.width()
+                } else {
+                    @Suppress("DEPRECATION")
+                    windowManager.defaultDisplay.width
+                }
+
                 textView.measure(
-                    View.MeasureSpec.makeMeasureSpec((windowManager.defaultDisplay.width * 0.9).toInt(), View.MeasureSpec.EXACTLY),
+                    View.MeasureSpec.makeMeasureSpec((screenWidth * 0.9).toInt(), View.MeasureSpec.EXACTLY),
                     View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
                 )
                 val viewHeight = textView.measuredHeight
@@ -1079,7 +1086,7 @@ class ConversationalAgentService : Service() {
 
                 // 2. Prepare layout params
                 val params = WindowManager.LayoutParams(
-                    (windowManager.defaultDisplay.width * 0.9).toInt(), // 90% of screen width
+                    (screenWidth * 0.9).toInt(), // 90% of screen width
                     WindowManager.LayoutParams.WRAP_CONTENT,
                     WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
@@ -1365,6 +1372,7 @@ class ConversationalAgentService : Service() {
                 }
 
                 if (snapshot != null && snapshot.exists()) {
+                    @Suppress("UNCHECKED_CAST")
                     val memoriesList = snapshot.get("memories") as? List<Map<String, Any>>
                     if (memoriesList != null) {
                         cachedMemories = memoriesList.mapNotNull { map ->

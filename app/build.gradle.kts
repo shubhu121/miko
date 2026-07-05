@@ -167,11 +167,18 @@ dependencies {
 }
 
 // Task to increment version for release builds
-tasks.register("incrementVersion") {
-    doLast {
-        val versionFile = rootProject.file("version.properties")
+abstract class IncrementVersionTask : DefaultTask() {
+    @get:InputFile
+    abstract val versionFile: RegularFileProperty
+
+    @get:OutputFile
+    abstract val outputVersionFile: RegularFileProperty
+
+    @TaskAction
+    fun increment() {
+        val file = versionFile.get().asFile
         val props = Properties()
-        props.load(FileInputStream(versionFile))
+        file.inputStream().use { props.load(it) }
 
         val currentVersionCode = props.getProperty("VERSION_CODE").toInt()
         val currentVersionName = props.getProperty("VERSION_NAME")
@@ -197,8 +204,7 @@ tasks.register("incrementVersion") {
         props.setProperty("VERSION_NAME", newVersionName)
 
         // Save back to file with comments
-        val output = FileOutputStream(versionFile)
-        output.use { fileOutput ->
+        outputVersionFile.get().asFile.outputStream().use { fileOutput ->
             fileOutput.write("# Version configuration for Blurr Android App\n".toByteArray())
             fileOutput.write("# This file is automatically updated during release builds\n".toByteArray())
             fileOutput.write("# Do not modify manually - use Gradle tasks to update versions\n\n".toByteArray())
@@ -212,9 +218,14 @@ tasks.register("incrementVersion") {
     }
 }
 
+val incrementVersion = tasks.register<IncrementVersionTask>("incrementVersion") {
+    versionFile.set(rootProject.file("version.properties"))
+    outputVersionFile.set(rootProject.file("version.properties"))
+}
+
 // Make release builds automatically increment version
-tasks.whenTaskAdded {
+tasks.configureEach {
     if (name == "assembleRelease" || name == "bundleRelease") {
-        dependsOn("incrementVersion")
+        dependsOn(incrementVersion)
     }
 }
