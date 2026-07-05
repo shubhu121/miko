@@ -32,7 +32,13 @@ jobs:
       - name: Decode release keystore
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-        run: echo "$KEYSTORE_BASE64" | base64 -d > "$GITHUB_WORKSPACE/miko-release.jks"
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ]; then
+            echo "::error::Secret KEYSTORE_BASE64 is empty or not set."
+            exit 1
+          fi
+          printf '%s' "$KEYSTORE_BASE64" | base64 -d > "$GITHUB_WORKSPACE/miko-release.jks"
+          echo "Keystore decoded ($(wc -c < "$GITHUB_WORKSPACE/miko-release.jks") bytes)."
 
       - name: Create keystore.properties
         run: |
@@ -46,7 +52,19 @@ jobs:
       - name: Restore google-services.json
         env:
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
-        run: echo "$GOOGLE_SERVICES_JSON" | base64 -d > app/google-services.json
+        run: |
+          if [ -z "$GOOGLE_SERVICES_JSON" ]; then
+            echo "::error::Secret GOOGLE_SERVICES_JSON is empty or not set. Set it to the base64 of app/google-services.json."
+            exit 1
+          fi
+          printf '%s' "$GOOGLE_SERVICES_JSON" | base64 -d > app/google-services.json
+          # Fail early with a clear message if the decoded file isn't valid JSON.
+          if ! python3 -c "import json,sys; json.load(open('app/google-services.json'))" 2>/dev/null; then
+            echo "::error::Decoded google-services.json is not valid JSON — the GOOGLE_SERVICES_JSON secret is corrupt or incomplete. Re-set it from GOOGLE_SERVICES_JSON.base64 (see below)."
+            echo "First 120 bytes of decoded file:"; head -c 120 app/google-services.json; echo
+            exit 1
+          fi
+          echo "google-services.json restored and validated."
 
       - name: Create local.properties
         run: |
